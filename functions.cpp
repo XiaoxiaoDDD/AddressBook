@@ -32,6 +32,10 @@ void Phone_Book::add_file(string ifile){
 		cout <<"the file cannot be opened" <<endl;
 	}
 	std::cout <<"all entries added to the hash table" <<endl;
+
+}
+
+void Phone_Book::print(){
 	for (int i = 0; i < p; i++){
 		cout << i <<" : ";
 		for (int j = 0; j < hash_table[i].size(); j++){
@@ -39,6 +43,10 @@ void Phone_Book::add_file(string ifile){
 		}
 		cout << endl;
 	}
+}
+
+void Phone_Book::add_line(Entry * entry){
+	hash_table[entry->hash_value].push_back(entry);
 }
 
 int Entry::get_hash(string key){
@@ -52,16 +60,18 @@ int Entry::get_hash(string key){
 }
 
 Entry * Phone_Book::entry_getter(string line){
-	string lis[7];
+	string lis[8];
 
 	int index = 0;
 	string tmp;
+	tmp = "";
 	for (int i = 0; i < line.length(); i++){
 		if (line[i] != ' '){
 			tmp += line[i];
 		}
 		else{
 			lis[index] = tmp;
+			//cout <<"-"<<tmp;
 			tmp = "";
 			index++;
 		}

@@ -41,6 +41,7 @@ public:
 	void dump(string);
 	void find_city(string);
 	Entry * entry_getter(string);
+	void print();
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;
@@ -49,3 +50,5 @@ public:
 	
 };
 #endif
+
+//problem now: multiple entries

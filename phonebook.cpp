@@ -53,13 +53,24 @@ int main(int argc, char* argv[]){
 				initialized = 1;
 
 			}
-			// else if (user_input =="add"){
-			// 	string name, room, street, city, country, number;
-			// 	cin >> name >>room >>street >>city >>country >>number;
-			// 	Entry * entry = new Entry(name, room,room, street, city, country, number);
+			//version A
+			// else if (user_input.substr(0,3) =="add"){
+			// 	Entry * entry;
+			// 	entry = pbook->entry_getter(user_input);
 			// 	pbook->add_line(entry);
-
+			// 	cout <<"added~"<<endl;
 			// }
+
+			//version B
+
+			else if (user_input =="add"){
+				string first,second, room, street, city, country, number;
+				cin >> first >>second >>room >>street >>city >>country >>number;
+				Entry * entry = new Entry(first, second ,room, street, city, country, number);
+				pbook->add_line(entry);
+				pbook->print();
+			}
+
 			// else if (user_input =="find"){
 			// 	string enterance;
 			// 	cin >>enterance;
