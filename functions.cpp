@@ -49,10 +49,29 @@ void Phone_Book::add_line(Entry * entry){
 	hash_table[entry->hash_value].push_back(entry);
 }
 
-int Entry::get_hash(string key){
-	int sum;
-	sum = 0;
-	key = this->first+" "+ this->second;
+
+int Phone_Book::find(string first, string second){
+	string key;
+	key = first + " "+ second;
+	int hash;
+	hash = Phone_Book::get_hash(key);
+	for (int i = 0; i < hash_table[hash].size(); i++){
+		if(hash_table[hash][i]->first ==first && hash_table[hash][i]->second ==second){
+			cout << "found: ";
+			Entry::print_entry(hash_table[hash][i]);
+			return 0;
+		}
+	}
+	cout <<"not found"<<endl;
+	return 1;
+
+
+}
+
+
+
+int Phone_Book::get_hash(string key){
+	int sum = 0;
 	for (int i = 0; i < key.length(); i++){
 		sum += key[i];
 	}

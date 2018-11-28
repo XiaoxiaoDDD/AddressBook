@@ -24,6 +24,7 @@ public:
 	string first, second, room, street, city, country, number;
 	string key;
 	int hash_value;
+	static void print_entry(Entry* );
 	
 };
 
@@ -36,7 +37,8 @@ public:
 
 	void add_file(string ifile);
 	void add_line(Entry *);
-	void find(string);
+	int find(string,string);
+	int get_hash(string);
 	void remove(string);
 	void dump(string);
 	void find_city(string);

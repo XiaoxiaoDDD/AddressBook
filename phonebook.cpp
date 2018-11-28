@@ -61,7 +61,7 @@ int main(int argc, char* argv[]){
 			// 	cout <<"added~"<<endl;
 			// }
 
-			//version B
+			//version B--it works
 
 			else if (user_input =="add"){
 				string first,second, room, street, city, country, number;
@@ -71,12 +71,12 @@ int main(int argc, char* argv[]){
 				pbook->print();
 			}
 
-			// else if (user_input =="find"){
-			// 	string enterance;
-			// 	cin >>enterance;
-			// 	pbook->find(enterance);
+			else if (user_input =="find"){
+				string first, second;
+				cin >>first >>second;
+				pbook->find(first,second);
 			
-			// }
+			}
 			// else if (user_input =="delete"){
 			// 	string enterance;
 			// 	cin >>enterance;
