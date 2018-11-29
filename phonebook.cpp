@@ -55,7 +55,7 @@ int main(int argc, char* argv[]){
 				initialized = 1;
 
 			}
-			//version A
+			//version A--not working
 			// else if (user_input.substr(0,3) =="add"){
 			// 	Entry * entry;
 			// 	entry = pbook->entry_getter(user_input);
@@ -90,13 +90,13 @@ int main(int argc, char* argv[]){
 			// 	cin >>ofile;
 			// 	pbook->dump(ofile);
 			
-			// }
-			// else if (user_input =="allinCity"){
-			// 	string city;
-			// 	cin >>city;
-			// 	pbook->find_city(city);
+			//}
+			else if (user_input =="allinCity"){
+				string city;
+				cin >>city;
+				pbook->find_city(city);
 			
-			// }
+			}
 			else if (user_input =="quit"){
 				return 0;
 			}

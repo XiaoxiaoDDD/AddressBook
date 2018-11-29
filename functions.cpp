@@ -24,6 +24,23 @@ int Phone_Book::append_file(string file){
 	return 0;
 }
 
+void Phone_Book::hash_and_sort(std::vector<Entry*> & entries){
+	count = entries.size();
+	for (int i =0; i < entries.size(); i++){
+		Entry * entry = entries[i];
+		hash_table[entry->hash_value].push_back(entry) ;
+	}
+	std::cout <<"all entries added to the hash table" <<endl;
+	sort_byCity(entries);
+	cout <<"sorted"<<all_entries.size()<< endl;
+
+	//for debug purpose
+	for (int i = 0; i < all_entries.size(); i++){
+		Entry::print_entry(all_entries[i]);
+	}
+
+}
+
 
 void Phone_Book::add_file(string ifile){
 	string line;
@@ -31,19 +48,14 @@ void Phone_Book::add_file(string ifile){
 	if (data.is_open()){
 		while (getline(data,line)){
 			Entry * entry;
-			entry = entry_getter(line);
-			hash_table[entry->hash_value].push_back(entry) ;
+			entry = entry_getter(line);		
 			all_entries.push_back(entry);
-			count++;
 		}
-		std::cout <<"all entries added to the hash table" <<endl;
-		sort_byCity(all_entries);
-		cout <<"sorted"<<all_entries.size()<< endl;
+		hash_and_sort(all_entries);		
 	}
 	else{
 		cout <<"the file cannot be opened" <<endl;
 	}
-	
 }
 
 std::vector<Entry *> Phone_Book::sort_byCity(vector<Entry*> all){
@@ -91,8 +103,6 @@ std::vector<Entry* > Phone_Book::merge(std::vector<Entry* > a, std::vector<Entry
 
 	return new_vec;
 
-
-
 }
 
 
@@ -128,8 +138,52 @@ int Phone_Book::find(string first, string second){
 	cout <<"not found"<<endl;
 	return 1;
 
+}
+
+void Phone_Book::find_city(string city){
+	std::vector<Entry*> residents;
+	int first = -1;
+	find_first_occurance(first, city);
+	cout <<"the first occurence is"<<first<<endl;
+	if (first == -1){
+		cout << "the city is not found in the phonebook"<<endl;
+	}
+	else{
+		while (all_entries[first]->city ==city){
+			residents.push_back(all_entries[first++]);
+		}
+		for (int i =0; i < residents.size(); i++){
+			Entry::print_entry(residents[i]);
+		}
+	}
 
 }
+
+
+//find the first occurance of the city
+void Phone_Book::find_first_occurance(int & first_occurance,string the_city){
+	int left = 0;
+	int right = all_entries.size() - 1;
+	int middle;
+
+	while (left <= right) {
+		//n_comparison++;
+		middle = (left + right)/ 2;
+
+		if (strcmp(the_city.c_str(),all_entries[middle]->city.c_str())>0) {
+			left = middle + 1;
+		}
+		else if (strcmp(the_city.c_str(),all_entries[middle]->city.c_str()) <= 0) {
+			right = middle;
+		}
+		if (left == right) break;
+	}
+	if (left == right && strcmp(the_city.c_str(),all_entries[middle]->city.c_str())==0){
+		first_occurance = left;
+	}
+
+}
+
 
 
 

@@ -34,6 +34,7 @@ public:
 	Phone_Book();
 	Phone_Book(string);
 	int append_file(string);
+	void hash_and_sort(std::vector<Entry*> & );
 
 	void add_file(string ifile);
 	void add_line(Entry *);
@@ -46,6 +47,7 @@ public:
 	void print();
 	vector<Entry *> sort_byCity(vector<Entry*> );
 	std::vector<Entry* > merge(std::vector<Entry* > , std::vector<Entry* > );
+	void find_first_occurance(int & ,string );
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;

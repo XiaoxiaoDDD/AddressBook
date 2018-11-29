@@ -8,7 +8,8 @@ Entry::Entry(string first,string second,string room,string street,string city,st
 	}
 
 void Entry::print_entry(Entry* entry){
-	cout <<entry->first <<" "<< entry->second <<" "<<entry->room <<" "<<entry->street<<" " <<entry->city<<" " <<entry->country <<" "<<entry->number <<endl;
+	cout <<entry->first <<" "<< entry->second <<" "<<entry->room <<" "<<entry->street<<" " <<entry->city<<" " <<entry->country;
+	cout<<"~"<<entry->number <<endl;
 }
 
 int Entry::get_hash(string key){
