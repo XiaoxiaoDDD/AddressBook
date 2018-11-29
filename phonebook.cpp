@@ -12,6 +12,7 @@ int main(int argc, char* argv[]){
 	}
 	else if (argc ==3 && strcmp(argv[1],"-f")==0){  //if the file is already given
 		ifile_name = argv[2];
+
 	}
 	else{  //if the promp is mistaken
 		cerr <<"mymachine-prompt >> ./phonebook -f <filename>"<<endl;
@@ -32,6 +33,7 @@ int main(int argc, char* argv[]){
 				}
 				else{
 					pbook = new Phone_Book(ifile_name);
+					pbook->loaded_files.push_back(ifile_name);
 					initialized = 1;
 				}
 

@@ -33,7 +33,7 @@ class Phone_Book
 public:
 	Phone_Book();
 	Phone_Book(string);
-	void append_file(string);
+	int append_file(string);
 
 	void add_file(string ifile);
 	void add_line(Entry *);
@@ -44,10 +44,15 @@ public:
 	void find_city(string);
 	Entry * entry_getter(string);
 	void print();
+	vector<Entry *> sort_byCity(vector<Entry*> );
+	std::vector<Entry* > merge(std::vector<Entry* > , std::vector<Entry* > );
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;
+	vector <Entry *> all_entries;
 	int count;
+	int size;
+	vector<string> loaded_files;
 
 	
 };
