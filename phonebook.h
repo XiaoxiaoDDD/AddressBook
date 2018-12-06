@@ -38,16 +38,17 @@ public:
 
 	void add_file(string ifile);
 	void add_line(Entry *);
-	int find(string,string);
+	Entry * find(string,string);
+	void remove(string,string);
 	int get_hash(string);
 	void remove(string);
 	void dump(string);
-	void find_city(string);
+	vector<Entry *>  find_city(string);
 	Entry * entry_getter(string);
 	void print();
-	vector<Entry *> sort_byCity(vector<Entry*> );
+	vector<Entry *> sort_byCity(vector<Entry*>& );
 	std::vector<Entry* > merge(std::vector<Entry* > , std::vector<Entry* > );
-	void find_first_occurance(int & ,string );
+	int binary_search(string );
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;

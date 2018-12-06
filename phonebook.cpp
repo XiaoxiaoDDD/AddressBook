@@ -76,15 +76,22 @@ int main(int argc, char* argv[]){
 			else if (user_input =="find"){
 				string first, second;
 				cin >>first >>second;
-				pbook->find(first,second);
+				Entry * e;
+				e =pbook->find(first,second);
+				if (e ==NULL){
+					cout <<"not found"<<endl;
+				}
+				else{
+					Entry::print_entry(e);
+				}
 			
 			}
-			// else if (user_input =="delete"){
-			// 	string enterance;
-			// 	cin >>enterance;
-			// 	pbook->remove(enterance);
+			else if (user_input =="delete"){
+				string first, second;
+				cin >>first>> second;
+				pbook->remove(first, second);
 			
-			// }
+			}
 			// else if (user_input =="dump"){
 			// 	string ofile;
 			// 	cin >>ofile;
@@ -94,8 +101,17 @@ int main(int argc, char* argv[]){
 			else if (user_input =="allinCity"){
 				string city;
 				cin >>city;
-				pbook->find_city(city);
-			
+				vector <Entry *>residents;
+				residents=pbook->find_city(city);
+				if (residents.size()==0){
+					cout <<"the city is not found in the phonebook"<<endl;
+				}
+				else{
+					cout <<"There are "<<residents.size()<<" residents in this city"<<endl;
+					for (int i = 0; i < residents.size(); i++){
+						Entry::print_entry(residents[i]);
+					}
+				}
 			}
 			else if (user_input =="quit"){
 				return 0;
