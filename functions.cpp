@@ -13,15 +13,16 @@ Phone_Book::Phone_Book(string ifile){
 	add_file(ifile);
 }
 
-void Phone_Book::evaluate_p(){
-	float pi;
-	pi = all_entries.size()/p;
-	while (pi > 2){
-		p= p*2;
-		pi = all_entries.size()/p;
+void Phone_Book::evaluate_p(int & size){
+	double pi;
+	pi = double(all_entries.size())/size;
+	while (pi > 1.5){
+		size= size*2;
+		pi = double(all_entries.size())/size;
 	}
-	hash_table.resize(p);
-	cout <<"now the prime number is "<<p<<endl;
+	hash_table.resize(size);
+	cout <<"now the prime number is "<<size<<endl;
+	cout <<"the hash_table capacity index is "<<pi<<endl;
 }
 
 
@@ -55,9 +56,9 @@ void Phone_Book::hash_and_sort(std::vector<Entry*> & entries){
 	
 
 	//for debug purpose
-	for (int i = 0; i < all_entries.size(); i++){
-		Entry::print_entry(all_entries[i]);
-	}
+	// for (int i = 0; i < all_entries.size(); i++){
+	// 	Entry::print_entry(all_entries[i]);
+	// }
 	std::cout <<"all entries added to the hash table" <<endl;
 
 }
@@ -74,7 +75,7 @@ void Phone_Book::add_file(string ifile){
 			entry = entry_getter(line);		
 			all_entries.push_back(entry);
 		}
-		evaluate_p();
+		evaluate_p(p);
 		hash_and_sort(all_entries);		//to remake the hash table and the sort
 	}
 	else{
@@ -133,7 +134,7 @@ std::vector<Entry* > Phone_Book::merge_by_city(std::vector<Entry* > a, std::vect
 }
 
 
-//this is for debug i guess, can't remember
+//this is for debug 
 void Phone_Book::print(){
 	for (int i = 0; i < p; i++){
 		cout << i <<" : ";

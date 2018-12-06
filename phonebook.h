@@ -52,7 +52,7 @@ public:
 	vector<Entry*> sort_by_key(vector<Entry*> &);
 	std::vector<Entry* > merge_by_key(std::vector<Entry* > , std::vector<Entry* > );
 	void save_to_file(vector<Entry*>, string);
-	void evaluate_p();
+	void evaluate_p(int & p);
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;

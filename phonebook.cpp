@@ -73,7 +73,7 @@ int main(int argc, char* argv[]){
 				cin >> first >>second >>room >>street >>city >>country >>number;
 				Entry * entry = new Entry(first, second ,room, street, city, country, number);
 				pbook->add_line(entry);
-				pbook->print();
+				//pbook->print();
 			}
 
 			else if (user_input =="find"){
