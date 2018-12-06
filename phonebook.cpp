@@ -104,6 +104,7 @@ int main(int argc, char* argv[]){
 				cin >>city;
 				vector <Entry *>residents;
 				residents=pbook->find_city(city);
+				pbook->save_to_file(residents, city);
 				if (residents.size()==0){
 					cout <<"the city is not found in the phonebook"<<endl;
 				}

@@ -24,6 +24,16 @@ int Entry::get_hash(string key){
 	return sum% p;
 }
 
+void Phone_Book::save_to_file(vector<Entry*> residents,string city){
+	ofstream outfile;
+	outfile.open(city);
+	for (int i = 0; i < residents.size(); i++){
+		outfile <<residents[i]->first <<" "<< residents[i]->second <<" "<<residents[i]->room <<" "<<residents[i]->street<<" " <<residents[i]->city<<" " <<residents[i]->country<<" "<<residents[i]->number <<endl;	
+	}
+	cout <<"all the entries are saved in the file called "<<city<<endl;
+
+	
+}
 
 //the following parts are phonebook functions
 void Phone_Book::dump(string ofile){
@@ -93,6 +103,7 @@ std::vector<Entry* > Phone_Book::merge_by_key(std::vector<Entry* > a, std::vecto
 	return new_vec;
 
 }
+
 
 
 

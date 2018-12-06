@@ -115,7 +115,6 @@ std::vector<Entry* > Phone_Book::merge_by_city(std::vector<Entry* > a, std::vect
 }
 
 
-
 //this is for debug i guess, can't remember
 void Phone_Book::print(){
 	for (int i = 0; i < p; i++){

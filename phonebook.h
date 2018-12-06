@@ -52,6 +52,7 @@ public:
 	int binary_search(string );
 	vector<Entry*> sort_by_key(vector<Entry*> &);
 	std::vector<Entry* > merge_by_key(std::vector<Entry* > , std::vector<Entry* > );
+	void save_to_file(vector<Entry*>, string);
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;
