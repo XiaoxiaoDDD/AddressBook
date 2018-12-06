@@ -2,14 +2,26 @@
 #include <math.h>
 
 Phone_Book::Phone_Book(){
+	p = 23; //initialize the size of hash table as 23;
 
 	hash_table.resize(p);
 }
 
 Phone_Book::Phone_Book(string ifile){
-
+	p = 23;
 	hash_table.resize(p);
 	add_file(ifile);
+}
+
+void Phone_Book::evaluate_p(){
+	float pi;
+	pi = all_entries.size()/p;
+	while (pi > 2){
+		p= p*2;
+		pi = all_entries.size()/p;
+	}
+	hash_table.resize(p);
+	cout <<"now the prime number is "<<p<<endl;
 }
 
 
@@ -21,6 +33,7 @@ int Phone_Book::append_file(string file){
 		}
 	}
 	add_file(file);
+
 	return 0;
 
 }
@@ -33,15 +46,19 @@ void Phone_Book::hash_and_sort(std::vector<Entry*> & entries){
 	for (int i =0; i < entries.size(); i++){
 		entries[i]->loc = i;
 		Entry * entry = entries[i];
+		entry->hash_value = entry->get_hash(entry->key, p);
+		//cout <<"we get new hash value"<<endl;
+
 		hash_table[entry->hash_value].push_back(entry) ;			
 	}
-	std::cout <<"all entries added to the hash table" <<endl;
+	
 	
 
 	//for debug purpose
 	for (int i = 0; i < all_entries.size(); i++){
 		Entry::print_entry(all_entries[i]);
 	}
+	std::cout <<"all entries added to the hash table" <<endl;
 
 }
 
@@ -57,6 +74,7 @@ void Phone_Book::add_file(string ifile){
 			entry = entry_getter(line);		
 			all_entries.push_back(entry);
 		}
+		evaluate_p();
 		hash_and_sort(all_entries);		//to remake the hash table and the sort
 	}
 	else{

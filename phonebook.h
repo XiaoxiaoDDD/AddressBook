@@ -9,9 +9,8 @@
 using namespace std;
 
 
-//const int p = 10007; //this is the prime number chosen
 
-const int p = 23; //this is the prime number chosen
+
 
 
 
@@ -20,7 +19,7 @@ class Entry
 public:
 	Entry(string,string,string,string,string,string,string);
 	~Entry();
-	int get_hash(string);
+	int get_hash(string,int);
 	string first, second, room, street, city, country, number;
 	string key;
 	int hash_value;
@@ -53,6 +52,7 @@ public:
 	vector<Entry*> sort_by_key(vector<Entry*> &);
 	std::vector<Entry* > merge_by_key(std::vector<Entry* > , std::vector<Entry* > );
 	void save_to_file(vector<Entry*>, string);
+	void evaluate_p();
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;
@@ -60,6 +60,7 @@ public:
 	int count;
 	int size;
 	vector<string> loaded_files;
+	int p;
 
 	
 };
