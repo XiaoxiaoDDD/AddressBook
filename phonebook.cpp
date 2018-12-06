@@ -1,4 +1,7 @@
 #include "phonebook.h"
+#include <chrono>
+
+using namespace std::chrono;
 
 
 int main(int argc, char* argv[]){
@@ -77,7 +80,14 @@ int main(int argc, char* argv[]){
 				string first, second;
 				cin >>first >>second;
 				Entry * e;
+
+				high_resolution_clock::time_point t1 = high_resolution_clock::now();
 				e =pbook->find(first,second);
+				high_resolution_clock::time_point t2 = high_resolution_clock::now();
+				auto duration = duration_cast<microseconds>( t2 - t1 ).count();
+				cout <<"the time needed for the find function is "<<duration<<" microseconds"<<endl;
+
+
 				if (e ==NULL){
 					cout <<"not found"<<endl;
 				}

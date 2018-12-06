@@ -178,12 +178,16 @@ Entry * Phone_Book::find(string first, string second){
 	string key;
 	key = first + " "+ second;
 	int hash;
+	int count = 1;
 	hash = Phone_Book::get_hash(key);
 	for (int i = 0; i < hash_table[hash].size(); i++){
+		count++;
 		if(hash_table[hash][i]->first ==first && hash_table[hash][i]->second ==second){
+			cout <<"the number of comparison is "<<count<<endl;
 			return hash_table[hash][i];
 		}
 	}
+	cout <<"the number of comparison is "<<count<<endl;
 	return NULL;
 
 }
