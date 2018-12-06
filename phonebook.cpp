@@ -53,8 +53,8 @@ int main(int argc, char* argv[]){
 				cin >>file_name;
 				pbook->append_file(file_name);
 				initialized = 1;
-
 			}
+
 			//version A--not working
 			// else if (user_input.substr(0,3) =="add"){
 			// 	Entry * entry;
@@ -82,6 +82,7 @@ int main(int argc, char* argv[]){
 					cout <<"not found"<<endl;
 				}
 				else{
+					cout <<"found:"<<endl;
 					Entry::print_entry(e);
 				}
 			
@@ -92,12 +93,12 @@ int main(int argc, char* argv[]){
 				pbook->remove(first, second);
 			
 			}
-			// else if (user_input =="dump"){
-			// 	string ofile;
-			// 	cin >>ofile;
-			// 	pbook->dump(ofile);
+			else if (user_input =="dump"){
+				string ofile;
+				cin >>ofile;
+				pbook->dump(ofile);
 			
-			//}
+			}
 			else if (user_input =="allinCity"){
 				string city;
 				cin >>city;

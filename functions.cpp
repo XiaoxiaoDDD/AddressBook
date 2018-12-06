@@ -22,20 +22,21 @@ int Phone_Book::append_file(string file){
 	}
 	add_file(file);
 	return 0;
+
 }
 
 void Phone_Book::hash_and_sort(std::vector<Entry*> & entries){
-	count = entries.size();
-	for (int i =0; i < entries.size(); i++){
-
-		Entry * entry = entries[i];
-		hash_table[entry->hash_value].push_back(entry) ;			
-
-
-	}
-	std::cout <<"all entries added to the hash table" <<endl;
 	entries = sort_byCity(entries);
 	cout <<"sorted"<<all_entries.size()<< endl;
+
+
+	for (int i =0; i < entries.size(); i++){
+		entries[i]->loc = i;
+		Entry * entry = entries[i];
+		hash_table[entry->hash_value].push_back(entry) ;			
+	}
+	std::cout <<"all entries added to the hash table" <<endl;
+	
 
 	//for debug purpose
 	for (int i = 0; i < all_entries.size(); i++){
@@ -43,6 +44,8 @@ void Phone_Book::hash_and_sort(std::vector<Entry*> & entries){
 	}
 
 }
+
+
 
 
 void Phone_Book::add_file(string ifile){
@@ -80,12 +83,13 @@ std::vector<Entry *> Phone_Book::sort_byCity(vector<Entry*>& all){
 		}
 		v1 = sort_byCity(v1);
 		v2 = sort_byCity(v2);
-		return merge(v1,v2);
+		return merge_by_city(v1,v2);
 	}
+
 
 }
 
-std::vector<Entry* > Phone_Book::merge(std::vector<Entry* > a, std::vector<Entry* > b){
+std::vector<Entry* > Phone_Book::merge_by_city(std::vector<Entry* > a, std::vector<Entry* > b){
 	int aa;
 	int bb;
 	aa = 0;
@@ -123,8 +127,12 @@ void Phone_Book::print(){
 	}
 }
 
+// void Phone_Book::add_line(Entry * entry){
+// 	hash_table[entry->hash_value].push_back(entry);
+// }
 void Phone_Book::add_line(Entry * entry){
-	hash_table[entry->hash_value].push_back(entry);
+	all_entries.push_back(entry);
+	hash_and_sort(all_entries);
 }
 
 void Phone_Book::remove(string first, string second){
@@ -133,9 +141,17 @@ void Phone_Book::remove(string first, string second){
 	if (e == NULL){
 		cerr <<"this entry is not found"<<endl;
 	}
-	else{	
-
-
+	else{
+		//first delete it from the sorted city list
+		all_entries.erase(all_entries.begin()+e->loc);
+		int seq = e->hash_value;
+		for (int i = 0; i < hash_table[seq].size(); i++){
+			if (hash_table[seq][i]->number == e->number){
+				hash_table[seq].erase(hash_table[seq].begin()+i);
+				cout <<"this entry deleted"<<endl;
+				break;
+			}
+		}
 	}
 
 }
@@ -148,7 +164,6 @@ Entry * Phone_Book::find(string first, string second){
 	hash = Phone_Book::get_hash(key);
 	for (int i = 0; i < hash_table[hash].size(); i++){
 		if(hash_table[hash][i]->first ==first && hash_table[hash][i]->second ==second){
-			cout << "found: ";
 			return hash_table[hash][i];
 		}
 	}
@@ -178,9 +193,10 @@ std::vector<Entry*> Phone_Book::find_city(string target_city){
 		}
 		//cout <<"yes" <<endl;
 
-		return residents;
-	
+			
 	}
+	//cout <<"we are about to return"<<endl;
+	return residents;
 }
 
 

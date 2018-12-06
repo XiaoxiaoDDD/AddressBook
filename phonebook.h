@@ -25,6 +25,7 @@ public:
 	string key;
 	int hash_value;
 	static void print_entry(Entry* );
+	int loc;
 	
 };
 
@@ -47,8 +48,10 @@ public:
 	Entry * entry_getter(string);
 	void print();
 	vector<Entry *> sort_byCity(vector<Entry*>& );
-	std::vector<Entry* > merge(std::vector<Entry* > , std::vector<Entry* > );
+	std::vector<Entry* > merge_by_city(std::vector<Entry* > , std::vector<Entry* > );
 	int binary_search(string );
+	vector<Entry*> sort_by_key(vector<Entry*> &);
+	std::vector<Entry* > merge_by_key(std::vector<Entry* > , std::vector<Entry* > );
 	
 	~Phone_Book();
 	std::vector<std::vector<Entry*> > hash_table;
