@@ -5,13 +5,16 @@ Phone_Book::Phone_Book(){
 	p = 23; //initialize the size of hash table as 23;
 
 	hash_table.resize(p);
+	cout <<"initiated"<<endl;
 }
 
 Phone_Book::Phone_Book(string ifile){
 	p = 23;
 	hash_table.resize(p);
 	add_file(ifile);
+	cout <<"initiated"<<endl;
 }
+
 
 void Phone_Book::evaluate_p(int & size){
 	double pi;
@@ -42,6 +45,10 @@ int Phone_Book::append_file(string file){
 void Phone_Book::hash_and_sort(std::vector<Entry*> & entries){
 	entries = sort_byCity(entries);
 	cout <<"sorted"<<all_entries.size()<< endl;
+
+	for (int i=0; i <p; i++){
+		hash_table[i].clear();
+	}
 
 
 	for (int i =0; i < entries.size(); i++){
@@ -77,6 +84,7 @@ void Phone_Book::add_file(string ifile){
 		}
 		evaluate_p(p);
 		hash_and_sort(all_entries);		//to remake the hash table and the sort
+		loaded_files.push_back(ifile);
 	}
 	else{
 		cout <<"the file cannot be opened" <<endl;
@@ -153,43 +161,82 @@ void Phone_Book::add_line(Entry * entry){
 	hash_and_sort(all_entries);
 }
 
+// void Phone_Book::remove(string first, string second){
+// 	vector <Entry*> results;
+// 	results= find(first,second);
+// 	if (results.size() ==0 ){
+// 		cerr <<"this entry is not found"<<endl;
+// 	}
+// 	else{
+// 		cout << "There are "<< results.size()<<" of them"<<endl;
+// 		//first delete it from the sorted city list
+// 		for (int i=0; i<results.size(); i++){
+// 			all_entries.erase(all_entries.begin()+results[i]->loc); //delete it from the all_entries		
+// 		}
+// 		cout <<"deleted from all_entries"<<endl;
+
+
+// 		int seq = results[0]->hash_value;//they all have the same key and thus hash_value
+// 		for (int i = 0; i < hash_table[seq].size(); i++){
+// 			if (hash_table[seq][i]->first == results[i]->first && hash_table[seq][i]->second == results[i]->second  ){
+// 				hash_table[seq].erase(hash_table[seq].begin()+i);
+// 				if (i != hash_table[seq].size()-1) i--;		
+// 				cout <<"An entry is deleted"<<endl;
+// 			}
+// 		}
+			
+// 		cout <<"all relevant entries are deleted"<<endl;
+// 	}
+
+// }
 void Phone_Book::remove(string first, string second){
-	Entry* e;
-	e= find(first,second);
-	if (e == NULL){
+	vector <Entry*> results;
+	results= find(first,second);
+
+	if (results.size() ==0 ){
 		cerr <<"this entry is not found"<<endl;
 	}
+
 	else{
-		//first delete it from the sorted city list
-		all_entries.erase(all_entries.begin()+e->loc);
-		int seq = e->hash_value;
+		int seq = results[0]->hash_value;//they all have the same key and thus hash_value
 		for (int i = 0; i < hash_table[seq].size(); i++){
-			if (hash_table[seq][i]->number == e->number){
+			if (hash_table[seq][i]->first == results[0]->first && hash_table[seq][i]->second == results[0]->second  ){
 				hash_table[seq].erase(hash_table[seq].begin()+i);
-				cout <<"this entry deleted"<<endl;
-				break;
+				i--;		
+				cout <<"An entry is deleted"<<endl;
 			}
 		}
+		all_entries.clear();
+		for (int i=0; i < p; i++){
+			for (int j = 0; j < hash_table[i].size(); j++){
+				all_entries.push_back(hash_table[i][j]);
+			}
+		}
+		hash_and_sort(all_entries);
+
+			
+		cout <<"all relevant entries are deleted"<<endl;
 	}
 
 }
 
 
-Entry * Phone_Book::find(string first, string second){
+vector <Entry*> Phone_Book::find(string first, string second){
 	string key;
 	key = first + " "+ second;
 	int hash;
 	int count = 1;
 	hash = Phone_Book::get_hash(key);
+	vector <Entry*> results;
 	for (int i = 0; i < hash_table[hash].size(); i++){
 		count++;
 		if(hash_table[hash][i]->first ==first && hash_table[hash][i]->second ==second){
-			cout <<"the number of comparison is "<<count<<endl;
-			return hash_table[hash][i];
+			//cout <<"the number of comparison is "<<count<<endl;
+			results.push_back(hash_table[hash][i]);
 		}
 	}
 	cout <<"the number of comparison is "<<count<<endl;
-	return NULL;
+	return results;
 
 }
 
@@ -237,7 +284,7 @@ int Phone_Book::binary_search(string the_city){
 		else if (strcmp(the_city.c_str(),all_entries[middle]->city.c_str()) < 0) {
 			right = middle;
 		}
-		if (strcmp(the_city.c_str(),all_entries[middle]->city.c_str()) == 0){
+		else if (strcmp(the_city.c_str(),all_entries[middle]->city.c_str()) == 0){
 			return middle;
 		}
 	}

@@ -79,21 +79,24 @@ int main(int argc, char* argv[]){
 			else if (user_input =="find"){
 				string first, second;
 				cin >>first >>second;
-				Entry * e;
+				vector <Entry*> results;
 
 				high_resolution_clock::time_point t1 = high_resolution_clock::now();
-				e =pbook->find(first,second);
+				results =pbook->find(first,second);
 				high_resolution_clock::time_point t2 = high_resolution_clock::now();
 				auto duration = duration_cast<microseconds>( t2 - t1 ).count();
 				cout <<"the time needed for the find function is "<<duration<<" microseconds"<<endl;
 
 
-				if (e ==NULL){
+				if (results.size() == 0){
 					cout <<"not found"<<endl;
 				}
 				else{
 					cout <<"found:"<<endl;
-					Entry::print_entry(e);
+					for (int i =0; i < results.size(); i++){
+						Entry::print_entry(results[i]);
+					}
+					
 				}
 			
 			}

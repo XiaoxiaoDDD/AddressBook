@@ -11,9 +11,6 @@ using namespace std;
 
 
 
-
-
-
 class Entry
 {
 public:
@@ -38,7 +35,7 @@ public:
 
 	void add_file(string ifile);
 	void add_line(Entry *);
-	Entry * find(string,string);
+	vector <Entry*> find(string,string);
 	void remove(string,string);
 	int get_hash(string);
 	void remove(string);
